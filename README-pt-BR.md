@@ -306,37 +306,37 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 <a name="dependencies"></a>
 
-## 4. Dependencies
+## 4. Dependências
 
 ![Github](/images/modules.png)
 
-- Keep track of your currently available packages: e.g., `npm ls --depth=0`. [read more...](https://docs.npmjs.com/cli/ls)
-- See if any of your packages have become unused or irrelevant: `depcheck`. [read more...](https://www.npmjs.com/package/depcheck)
+- Acompanhe seus pacoes disponíveis atualmente: e.g., `npm ls --depth=0`. [Leia mais sobre...](https://docs.npmjs.com/cli/ls)
+- Confira se algum dos seus pacotes não está em uso ou se tornou irrelevante: `depcheck`. [Leia mais sobre...](https://www.npmjs.com/package/depcheck)
 
-  _Why:_
+  _Por que?_
 
-  > You may include an unused library in your code and increase the production bundle size. Find unused dependencies and get rid of them.
+  > Você pode estar fazendo o bundle final ficar maior com bibliotecas não usadas. Identifique essas bibliotecas não usadas e se livre delas.
 
-- Before using a dependency, check its download statistics to see if it is heavily used by the community: `npm-stat`. [read more...](https://npm-stat.com/)
+- Antes de começar a usar uma dependência, confira o quanto ela é usada pela comunidade: `npm-stat`. [Leia mais sobre...](https://npm-stat.com/)
 
-  _Why:_
+  _Por que?_
 
-  > More usage mostly means more contributors, which usually means better maintenance, and all of these result in quickly discovered bugs and quickly developed fixes.
+  > Maior uso geralmente significa mais contribuidores, o que leva a deduzir que possui melhor manutenção, o que tudo isso junto leva a concluir que bugs serão encontrados mais facilmente e resolvidos rapidamente.
 
-- Before using a dependency, check to see if it has a good, mature version release frequency with a large number of maintainers: e.g., `npm view async`. [read more...](https://docs.npmjs.com/cli/view)
+- Antes de usar uma dependência, confira se possui uma versão madura o suficiente com um grande número de pessoas mantendo: e.g., `npm view async`. [Leia mais sobre...](https://docs.npmjs.com/cli/view)
 
-  _Why:_
+  _Por que?_
 
-  > Having loads of contributors won't be as effective if maintainers don't merge fixes and patches quickly enough.
+  > Ter muitos contribuidores não var ser tão efetivo quando se os mantenedores não fizerem os merge fixes e patches rápido.
 
-- If a less known dependency is needed, discuss it with the team before using it.
-- Always make sure your app works with the latest version of its dependencies without breaking: `npm outdated`. [read more...](https://docs.npmjs.com/cli/outdated)
+- Se você precisa de uma dependência menos conhecida, discuta com o time antes de usa-la.
+- Sempre tenha certeza que sua aplicação funciona com a ultima versão das dependências: `npm outdated`. [Leia mais sobre...](https://docs.npmjs.com/cli/outdated)
 
-  _Why:_
+  _Por que?_
 
-  > Dependency updates sometimes contain breaking changes. Always check their release notes when updates show up. Update your dependencies one by one, that makes troubleshooting easier if anything goes wrong. Use a cool tool such as [npm-check-updates](https://github.com/tjunnone/npm-check-updates).
+  > Atualização de dependência as vezes possuem 'breaking changes'. Sempre confira a descrição da nova versão sempre que sair, isso faz com que lidar com os possíveis problemas seja mais fáceis. Use uma dessas ferramentas maneiras, como: [npm-check-updates](https://github.com/tjunnone/npm-check-updates).
 
-- Check to see if the package has known security vulnerabilities with, e.g., [Snyk](https://snyk.io/test?utm_source=risingstack_blog).
+- Confira problemas de segurança com a dependência que você quer adicionar, e.g., [Snyk](https://snyk.io/test?utm_source=risingstack_blog).
 
 <a name="testing"></a>
 
