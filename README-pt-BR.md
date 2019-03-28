@@ -15,26 +15,27 @@
 
 <hr>
 
-- [Git](#git)
-  - [Algumas regras do Git](#some-git-rules)
-  - [Git workflow](#git-workflow)
-  - [Escrevendo boas mensagens de commit](#writing-good-commit-messages)
-- [Documentação](#documentation)
-- [Ambientes](#environments)
-  - [Ambiente de dev consistente](#consistent-dev-environments)
-  - [dependências consistentes](#consistent-dependencies)
-- [dependências](#dependencies)
-- [Testes](#testing)
-- [Estrutuaras e nomes](#structure-and-naming)
-- [Estilo de código](#code-style)
-  - [Alguns padrões de estilo de código](#code-style-check)
-  - [Forçando os padrões de códigos definidos](#enforcing-code-style-standards)
-- [Logging](#logging)
-- [API](#api)
-  - [Design da API](#api-design)
-  - [Segurança da API](#api-security)
-  - [Documentação da API](#api-documentation)
-- [Licensas](#licensing)
+- [Padrões de Projeto &middot; ![PRs são bem vindos](http://makeapullrequest.com)](#padr%C3%B5es-de-projeto-middot-prs-s%C3%A3o-bem-vindoshttpmakeapullrequestcom)
+  - [1. Git](#1-git)
+    - [1.1 Algumas regras do Git](#11-algumas-regras-do-git)
+    - [1.2 Git workflow](#12-git-workflow)
+    - [1.3 Escrevendo boas mensagens de commit](#13-escrevendo-boas-mensagens-de-commit)
+  - [2. Documentação](#2-documenta%C3%A7%C3%A3o)
+  - [3. Ambientes](#3-ambientes)
+    - [3.1 Ambientes de dev consistentes:](#31-ambientes-de-dev-consistentes)
+    - [3.2 Dependências consistentes:](#32-depend%C3%AAncias-consistentes)
+  - [4. Dependências](#4-depend%C3%AAncias)
+  - [5. Testes](#5-testes)
+  - [6. Structure and Naming](#6-structure-and-naming)
+  - [7. Code style](#7-code-style)
+    - [7.1 Some code style guidelines](#71-some-code-style-guidelines)
+    - [7.2 Enforcing code style standards](#72-enforcing-code-style-standards)
+  - [8. Logging](#8-logging)
+  - [9. API](#9-api)
+    - [9.1 API design](#91-api-design)
+    - [9.2 API security](#92-api-security)
+    - [9.3 API documentation](#93-api-documentation)
+  - [10. Licensing](#10-licensing)
 
 <a name="git"></a>
 
@@ -340,53 +341,53 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 <a name="testing"></a>
 
-## 5. Testing
+## 5. Testes
 
-![Testing](/images/testing.png)
+![Testes](/images/testing.png)
 
-- Have a `test` mode environment if needed.
+- Tenha um ambiente the `test` se necessário
 
-  _Why:_
+  _Por que?_
 
-  > While sometimes end to end testing in `production` mode might seem enough, there are some exceptions: One example is you may not want to enable analytical information on a 'production' mode and pollute someone's dashboard with test data. The other example is that your API may have rate limits in `production` and blocks your test calls after a certain amount of requests.
+  > Embora algumas vezes testes end to end em `produção` possam parecer suficientes, existem algumas exceções: Um exemplo é que você não vai querer colocar dados analíticos em `produção` e assim poluir o dashboard de alguém com dados de teste. Outro exemplo é que sua API pode ter algumas limitações enquanto em `produção` e chamadas de teste depois de uma certa quantidade.
 
-- Place your test files next to the tested modules using `*.test.js` or `*.spec.js` naming convention, like `moduleName.spec.js`.
+- Coloque os arquivos de teste junto com os arquivos a serem testados usando a convenção `*.test.js` ou `*.spec.js` para nomear os arquivos, como `moduleName.spec.js`.
 
-  _Why:_
+  _Por que?_
 
-  > You don't want to dig through a folder structure to find a unit test. [read more...](https://hackernoon.com/structure-your-javascript-code-for-testability-9bc93d9c72dc)
+  > Você não quer ter que navegar em várias pastas para achar um teste unitário. [Leia mais sobre...](https://hackernoon.com/structure-your-javascript-code-for-testability-9bc93d9c72dc)
 
-* Put your additional test files into a separate test folder to avoid confusion.
+* Coloque seus arquivos de testes adicionais em uma pasta separada para evitar confusão.
 
-  _Why:_
+  _Por que?_
 
-  > Some test files don't particularly relate to any specific implementation file. You have to put it in a folder that is most likely to be found by other developers: `__test__` folder. This name: `__test__` is also standard now and gets picked up by most JavaScript testing frameworks.
+  > Alguns arquivos de testes não tem nenhuma relação com qualquer outro arquivo. Você deve coloca-los em uma pasta fácil de ser encontrada pelos outros desenvolvedores do time, como por exemplo: Uma pasta `__test__`. Essa nomeação é padrão e reconhecida pela maioria de frameworks de teste de JavaScript.
 
-* Write testable code, avoid side effects, extract side effects, write pure functions
+* Escreva código testável, evite efeitos colaterais (side effects), escreva funções puras
 
-  _Why:_
+  _Por que?_
 
-  > You want to test a business logic as separate units. You have to "minimize the impact of randomness and nondeterministic processes on the reliability of your code". [read more...](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
+  > Você vai querer testar uma regra de negócio como uma unidade separada. Voce tem que "minimizar o impacto de aleatoriedade e processos não determinísticos no seu código". [Leia mais sobre...](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
 
-  > A pure function is a function that always returns the same output for the same input. Conversely, an impure function is one that may have side effects or depends on conditions from the outside to produce a value. That makes it less predictable. [read more...](https://hackernoon.com/structure-your-javascript-code-for-testability-9bc93d9c72dc)
+  > Uma função pura é uma função que sempre retorna o mesmo valor para uma entrada específica. Por outro lado, uma função impura é uma função que pode ter efeitos colaterais e depender de condições externas para retornar algum valor. Isso reduz a capacidade de prever o que o código vai realizar. [Leia mais sobre...](https://hackernoon.com/structure-your-javascript-code-for-testability-9bc93d9c72dc)
 
-* Use a static type checker
+* Use uma checagem de tipo estática
 
-  _Why:_
+  _Por que?_
 
-  > Sometimes you may need a Static type checker. It brings a certain level of reliability to your code. [read more...](https://medium.freecodecamp.org/why-use-static-types-in-javascript-part-1-8382da1e0adb)
+  > As vezes você vai precisar de checagem de tipo estática. O que também aumenta a regidibilidade e legibilidade do seu código. [Leia mais sobre...](https://medium.freecodecamp.org/why-use-static-types-in-javascript-part-1-8382da1e0adb)
 
-- Run tests locally before making any pull requests to `develop`.
+- Rode os testes localmente antes de abrir um pull request para  `develop`.
 
-  _Why:_
+  _Por que?_
 
-  > You don't want to be the one who caused production-ready branch build to fail. Run your tests after your `rebase` and before pushing your feature-branch to a remote repository.
+  > Você não quer ser a pessoa a fazer a branch com código pronto para produção parar de funcionar. Rode seus teste depois que fizer `rebase` e antes de fazer push para sua feature branch.
 
-- Document your tests including instructions in the relevant section of your `README.md` file.
+- Documente seus testes incluindo instruções importantes em uma seção no arquivo `README.md`.
 
-  _Why:_
+  _Por que?_
 
-  > It's a handy note you leave behind for other developers or DevOps experts or QA or anyone who gets lucky enough to work on your code.
+  > Vai ser de muita ajuda para outros desenvolvedores, DevOps, QA ou qualquer um que tiver a sorte de trabalhar com seu código.
 
 <a name="structure-and-naming"></a>
 
