@@ -26,7 +26,7 @@
     - [3.2 Dependências consistentes:](#32-depend%C3%AAncias-consistentes)
   - [4. Dependências](#4-depend%C3%AAncias)
   - [5. Testes](#5-testes)
-  - [6. Structure and Naming](#6-structure-and-naming)
+  - [6. Nomes e estrutura](#6-nomes-e-estrutura)
   - [7. Code style](#7-code-style)
     - [7.1 Some code style guidelines](#71-some-code-style-guidelines)
     - [7.2 Enforcing code style standards](#72-enforcing-code-style-standards)
@@ -391,14 +391,13 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 <a name="structure-and-naming"></a>
 
-## 6. Structure and Naming
+## 6. Nomes e estrutura
 
 ![Structure and Naming](/images/folder-tree.png)
 
-- Organize your files around product features / pages / components, not roles. Also, place your test files next to their implementation.
+- Organize seus arquivos considerando feature / páginas / componentes. E também, coloque os arquivos de teste próximos à implementação..
 
-
-    **Bad**
+    **Ruim**
 
     ```
     .
@@ -410,7 +409,7 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
     |   └── user.js
     ```
 
-    **Good**
+    **Bom**
 
     ```
     .
@@ -424,33 +423,27 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
     |   └── user.test.js
     ```
 
-    _Why:_
-    > Instead of a long list of files, you will create small modules that encapsulate one responsibility including its test and so on. It gets much easier to navigate through and things can be found at a glance.
+    _Por que?_
+    > Ao invés de uma longa lista de arquivos você estará criando pequenos modulos encapsulando responsabilidades e seus respectivos testes. Fica muito mais fácil de se navegar e as coisas podem ser facilmente encontradas.
 
-- Put your additional test files to a separate test folder to avoid confusion.
+- Use uma pasta com o nome `./config` e **não** crie arquivos de configuração diferente para cada ambiente.
 
-  _Why:_
+  _Por que?_
 
-  > It is a time saver for other developers or DevOps experts in your team.
+  > Quando você distribuí as configurações em arquivos com propósitos diferentes (database, API e etc); Coloca-los em uma pasta com o nome fácil de reconhecer como `config` faz sentido. Apenas se lembre de não criar arquivos de configuração diferentes para cada ambiente. Isso não escala, cada novo deploy diferente que se faz necessário, novos nomes de ambientes são criados.
+  > Valores para serem usados por arquivos de configuração devem ser providos através de variáveis de ambiente. [Leia mais sobre...](https://medium.com/@fedorHK/no-config-b3f1171eecd5)
 
-- Use a `./config` folder and don't make different config files for different environments.
+* Coloque seus scripts em uma pasta nomeada `./scripts`. Isso vale para `bash` e `node`.
 
-  _Why:_
+  _Por que?_
 
-  > When you break down a config file for different purposes (database, API and so on); putting them in a folder with a very recognizable name such as `config` makes sense. Just remember not to make different config files for different environments. It doesn't scale cleanly, as more deploys of the app are created, new environment names are necessary.
-  > Values to be used in config files should be provided by environment variables. [read more...](https://medium.com/@fedorHK/no-config-b3f1171eecd5)
+  > É bem provável que você vai acabar com mais de um script, build de produção, build de dev, database feeders, database sync e etc...
 
-* Put your scripts in a `./scripts` folder. This includes `bash` and `node` scripts.
+- Direcione os arquivos de output do build em uma pasta nomeada `./build`. Adicione `build/` no `.gitignore`.
 
-  _Why:_
+  _Por que?_
 
-  > It's very likely you may end up with more than one script, production build, development build, database feeders, database synchronization and so on.
-
-- Place your build output in a `./build` folder. Add `build/` to `.gitignore`.
-
-  _Why:_
-
-  > Name it what you like, `dist` is also cool. But make sure that keep it consistent with your team. What gets in there is most likely generated (bundled, compiled, transpiled) or moved there. What you can generate, your teammates should be able to generate too, so there is no point committing them into your remote repository. Unless you specifically want to.
+  > Dê o nome que você achar conveniente, `dist` também é uma boa opção. Mas tenha a certeza de manter isso consistente com os projetos do time. Os arquivos que vão para essa pasta são gerados automaticamente (bundled, compiled, transpiled) ou movidos automaticamente para lá. O que você pode gerar, qualquer um no time deve ser capaz de gerar também, então não faz nenhum sentido comitar isso para o repositório. A não ser que você realmente queira muito fazer isso.
 
 <a name="code-style"></a>
 
@@ -464,19 +457,19 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 - Use stage-2 and higher JavaScript (modern) syntax for new projects. For old project stay consistent with existing syntax unless you intend to modernise the project.
 
-  _Why:_
+  _Por que?_
 
   > This is all up to you. We use transpilers to use advantages of new syntax. stage-2 is more likely to eventually become part of the spec with only minor revisions.
 
 - Include code style check in your build process.
 
-  _Why:_
+  _Por que?_
 
   > Breaking your build is one way of enforcing code style to your code. It prevents you from taking it less seriously. Do it for both client and server-side code. [read more...](https://www.robinwieruch.de/react-eslint-webpack-babel/)
 
 - Use [ESLint - Pluggable JavaScript linter](http://eslint.org/) to enforce code style.
 
-  _Why:_
+  _Por que?_
 
   > We simply prefer `eslint`, you don't have to. It has more rules supported, the ability to configure the rules, and ability to add custom rules.
 
@@ -484,49 +477,49 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 - We use [Flow type style check rules for ESLint](https://github.com/gajus/eslint-plugin-flowtype) when using [FlowType](https://flow.org/).
 
-  _Why:_
+  _Por que?_
 
   > Flow introduces few syntaxes that also need to follow certain code style and be checked.
 
 - Use `.eslintignore` to exclude files or folders from code style checks.
 
-  _Why:_
+  _Por que?_
 
   > You don't have to pollute your code with `eslint-disable` comments whenever you need to exclude a couple of files from style checking.
 
 - Remove any of your `eslint` disable comments before making a Pull Request.
 
-  _Why:_
+  _Por que?_
 
   > It's normal to disable style check while working on a code block to focus more on the logic. Just remember to remove those `eslint-disable` comments and follow the rules.
 
 - Depending on the size of the task use `//TODO:` comments or open a ticket.
 
-  _Why:_
+  _Por que?_
 
   > So then you can remind yourself and others about a small task (like refactoring a function or updating a comment). For larger tasks use `//TODO(#3456)` which is enforced by a lint rule and the number is an open ticket.
 
 * Always comment and keep them relevant as code changes. Remove commented blocks of code.
 
-  _Why:_
+  _Por que?_
 
   > Your code should be as readable as possible, you should get rid of anything distracting. If you refactored a function, don't just comment out the old one, remove it.
 
 * Avoid irrelevant or funny comments, logs or naming.
 
-  _Why:_
+  _Por que?_
 
   > While your build process may(should) get rid of them, sometimes your source code may get handed over to another company/client and they may not share the same banter.
 
 * Make your names search-able with meaningful distinctions avoid shortened names. For functions use long, descriptive names. A function name should be a verb or a verb phrase, and it needs to communicate its intention.
 
-  _Why:_
+  _Por que?_
 
   > It makes it more natural to read the source code.
 
 * Organize your functions in a file according to the step-down rule. Higher level functions should be on top and lower levels below.
 
-  _Why:_
+  _Por que?_
 
   > It makes it more natural to read the source code.
 
@@ -536,7 +529,7 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 - Use a [.editorconfig](http://editorconfig.org/) file which helps developers define and maintain consistent coding styles between different editors and IDEs on the project.
 
-  _Why:_
+  _Por que?_
 
   > The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles. EditorConfig files are easily readable and they work nicely with version control systems.
 
@@ -544,13 +537,13 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 - Consider using Git hooks.
 
-  _Why:_
+  _Por que?_
 
   > Git hooks greatly increase a developer's productivity. Make changes, commit and push to staging or production environments without the fear of breaking builds. [read more...](http://githooks.com/)
 
 - Use Prettier with a precommit hook.
 
-  _Why:_
+  _Por que?_
 
   > While `prettier` itself can be very powerful, it's not very productive to run it simply as an npm task alone each time to format code. This is where `lint-staged` (and `husky`) come into play. Read more on configuring `lint-staged` [here](https://github.com/okonet/lint-staged#configuration) and on configuring `husky` [here](https://github.com/typicode/husky).
 
@@ -562,14 +555,14 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 - Avoid client-side console logs in production
 
-  _Why:_
+  _Por que?_
 
   > Even though your build process can (should) get rid of them, make sure that your code style checker warns you about leftover console logs.
 
 - Produce readable production logging. Ideally use logging libraries to be used in production mode (such as [winston](https://github.com/winstonjs/winston) or
   [node-bunyan](https://github.com/trentm/node-bunyan)).
 
-      _Why:_
+      _Por que?_
       > It makes your troubleshooting less unpleasant with colorization, timestamps, log to a file in addition to the console or even logging to a file that rotates daily. [read more...](https://blog.risingstack.com/node-js-logging-tutorial/)
 
 <a name="api"></a>
@@ -582,11 +575,11 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 ### 9.1 API design
 
-_Why:_
+_Por que?_
 
 > Because we try to enforce development of sanely constructed RESTful interfaces, which team members and clients can consume simply and consistently.
 
-_Why:_
+_Por que?_
 
 > Lack of consistency and simplicity can massively increase integration and maintenance costs. Which is why `API design` is included in this document.
 
@@ -596,7 +589,7 @@ _Why:_
   - A group of resources is called a collection.
   - URL identifies the online location of resource or collection.
 
-  _Why:_
+  _Por que?_
 
   > This is a very well-known design to developers (your main API consumers). Apart from readability and ease of use, it allows us to write generic libraries and connectors without even knowing what the API is about.
 
@@ -606,7 +599,7 @@ _Why:_
 
 - Always use a plural nouns for naming a url pointing to a collection: `/users`.
 
-  _Why:_
+  _Por que?_
 
   > Basically, it reads better and keeps URLs consistent. [read more...](https://apigee.com/about/blog/technology/restful-api-design-plural-nouns-and-concrete-names)
 
@@ -629,13 +622,13 @@ _Why:_
   GET /blogs/:blogId/posts/:postId/summary
   ```
 
-  _Why:_
+  _Por que?_
 
   > This is not pointing to a resource but to a property instead. You can pass the property as a parameter to trim your response.
 
 - Keep verbs out of your resource URLs.
 
-  _Why:_
+  _Por que?_
 
   > Because if you use a verb for each resource operation you soon will have a huge list of URLs and no consistent pattern which makes it difficult for developers to learn. Plus we use verbs for something else.
 
@@ -645,25 +638,25 @@ _Why:_
   /translate?text=Hallo
   ```
 
-  _Why:_
+  _Por que?_
 
   > Because for CRUD we use HTTP methods on `resource` or `collection` URLs. The verbs we were talking about are actually `Controllers`. You usually don't develop many of these. [read more...](https://byrondover.github.io/post/restful-api-guidelines/#controller)
 
 - The request body or response type is JSON then please follow `camelCase` for `JSON` property names to maintain the consistency.
 
-  _Why:_
+  _Por que?_
 
   > This is a JavaScript project guideline, where the programming language for generating and parsing JSON is assumed to be JavaScript.
 
 - Even though a resource is a singular concept that is similar to an object instance or database record, you should not use your `table_name` for a resource name and `column_name` resource property.
 
-  _Why:_
+  _Por que?_
 
   > Because your intention is to expose Resources, not your database schema details.
 
 - Again, only use nouns in your URL when naming your resources and don’t try to explain their functionality.
 
-  _Why:_
+  _Por que?_
 
   > Only use nouns in your resource URLs, avoid endpoints like `/addNewUser` or `/updateUser` . Also avoid sending resource operations as a parameter.
 
@@ -683,7 +676,7 @@ _Why:_
 
 * For nested resources, use the relation between them in the URL. For instance, using `id` to relate an employee to a company.
 
-  _Why:_
+  _Por que?_
 
   > This is a natural way to make resources explorable.
 
@@ -705,7 +698,7 @@ _Why:_
   http://api.domain.com/v1/schools/3/students
   ```
 
-  _Why:_
+  _Por que?_
 
   > When your APIs are public for other third parties, upgrading the APIs with some breaking change would also lead to breaking the existing products or services using your APIs. Using versions in your URL can prevent that from happening. [read more...](https://apigee.com/about/blog/technology/restful-api-design-tips-versioning)
 
@@ -740,7 +733,7 @@ _Why:_
   }
   ```
 
-  _Why:_
+  _Por que?_
 
   > developers depend on well-designed errors at the critical times when they are troubleshooting and resolving issues after the applications they've built using your APIs are in the hands of their users.
 
@@ -768,7 +761,7 @@ _Why:_
 
       > `500 Internal Server Error` indicates that the request is valid, but the server could not fulfill it due to some unexpected condition.
 
-      _Why:_
+      _Por que?_
       > Most API providers use a small subset HTTP status codes. For example, the Google GData API uses only 10 status codes, Netflix uses 9, and Digg, only 8. Of course, these responses contain a body with additional information.There are over 70 HTTP status codes. However, most developers don't have all 70 memorized. So if you choose status codes that are not very common you will force application developers away from building their apps and over to wikipedia to figure out what you're trying to tell them. [read more...](https://apigee.com/about/blog/technology/restful-api-design-what-about-errors)
 
 * Provide total numbers of resources in your response.
@@ -788,7 +781,7 @@ These are some basic security best practices:
 
 - Don't use basic authentication unless over a secure connection (HTTPS). Authentication tokens must not be transmitted in the URL: `GET /users/123?token=asdf....`
 
-  _Why:_
+  _Por que?_
 
   > Because Token, or user ID and password are passed over the network as clear text (it is base64 encoded, but base64 is a reversible encoding), the basic authentication scheme is not secure. [read more...](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication)
 
@@ -800,7 +793,7 @@ These are some basic security best practices:
 
 - Consider using Rate Limiting.
 
-  _Why:_
+  _Por que?_
 
   > To protect your APIs from bot threats that call your API thousands of times per hour. You should consider implementing rate limit early on.
 
@@ -812,13 +805,13 @@ These are some basic security best practices:
 
 - Serialize your JSON.
 
-  _Why:_
+  _Por que?_
 
   > A key concern with JSON encoders is preventing arbitrary JavaScript remote code execution within the browser... or, if you're using node.js, on the server. It's vital that you use a proper JSON serializer to encode user-supplied data properly to prevent the execution of user-supplied input on the browser.
 
 - Validate the content-type and mostly use `application/*json` (Content-Type header).
 
-  _Why:_
+  _Por que?_
 
   > For instance, accepting the `application/x-www-form-urlencoded` mime type allows the attacker to create a form and trigger a simple POST request. The server should never assume the Content-Type. A lack of Content-Type header or an unexpected Content-Type header should result in the server rejecting the content with a `4XX` response.
 
