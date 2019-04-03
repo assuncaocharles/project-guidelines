@@ -559,8 +559,6 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
   > Mesmo que o seu processo de compilação possa (e deve) se livrar deles, certifique-se de que seu lint de código avise sobre os console logs restantes.
 
-Produza logging de produção legível. O ideal é usar bibliotecas de log para serem usadas no modo de produção (como winston ou node-bunyan).
-
 - Crie logs de produção legíveis. O ideal é utilizar bibliotecas de log em produção (como, por exemplo [winston](https://github.com/winstonjs/winston) ou
   [node-bunyan](https://github.com/trentm/node-bunyan)).
 
