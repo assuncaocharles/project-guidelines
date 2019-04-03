@@ -553,17 +553,19 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 ![Logging](/images/logging.png)
 
-- Avoid client-side console logs in production
+- Evite console logs no client-side em produção
 
   _Por que?_
 
-  > Even though your build process can (should) get rid of them, make sure that your code style checker warns you about leftover console logs.
+  > Mesmo que o seu processo de compilação possa (e deve) se livrar deles, certifique-se de que seu lint de código avise sobre os console logs restantes.
 
-- Produce readable production logging. Ideally use logging libraries to be used in production mode (such as [winston](https://github.com/winstonjs/winston) or
+Produza logging de produção legível. O ideal é usar bibliotecas de log para serem usadas no modo de produção (como winston ou node-bunyan).
+
+- Crie logs de produção legíveis. O ideal é utilizar bibliotecas de log em produção (como, por exemplo [winston](https://github.com/winstonjs/winston) ou
   [node-bunyan](https://github.com/trentm/node-bunyan)).
 
       _Por que?_
-      > It makes your troubleshooting less unpleasant with colorization, timestamps, log to a file in addition to the console or even logging to a file that rotates daily. [read more...](https://blog.risingstack.com/node-js-logging-tutorial/)
+      > Ele torna sua solução de problemas mais agradável com sistema de cores, data e hora, registra em um arquivo além do console e até mesmo pode atualizar o arquivo diariamente. [saiba mais...](https://blog.risingstack.com/node-js-logging-tutorial/)
 
 <a name="api"></a>
 
