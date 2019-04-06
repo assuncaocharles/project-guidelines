@@ -27,9 +27,9 @@
   - [4. Dependências](#4-depend%C3%AAncias)
   - [5. Testes](#5-testes)
   - [6. Nomes e estrutura](#6-nomes-e-estrutura)
-  - [7. Code style](#7-code-style)
-    - [7.1 Some code style guidelines](#71-some-code-style-guidelines)
-    - [7.2 Enforcing code style standards](#72-enforcing-code-style-standards)
+  - [7. Estilo de código](#7-estilo-de-c%C3%B3digo)
+    - [7.1 Alguns padrões de estilo de código](#71-alguns-padr%C3%B5es-de-estilo-de-c%C3%B3digo)
+    - [7.2 Force o code style](#72-force-o-code-style)
   - [8. Logging](#8-logging)
   - [9. API](#9-api)
     - [9.1 API design](#91-api-design)
@@ -447,105 +447,99 @@ Ter um bom padrão para criar commits e se atentar a ele faz com que trabalhar c
 
 <a name="code-style"></a>
 
-## 7. Code style
+## 7. Estilo de código
 
 ![Code style](/images/code-style.png)
 
 <a name="code-style-check"></a>
 
-### 7.1 Some code style guidelines
+### 7.1 Alguns padrões de estilo de código
 
-- Use stage-2 and higher JavaScript (modern) syntax for new projects. For old project stay consistent with existing syntax unless you intend to modernise the project.
-
-  _Por que?_
-
-  > This is all up to you. We use transpilers to use advantages of new syntax. stage-2 is more likely to eventually become part of the spec with only minor revisions.
-
-- Include code style check in your build process.
+- Use stage-2 e sintaxe moderna de JavaScript nos seus novos projetos. Para os projetos antigos, mantenha a consistência, a não ser que modernizar o projeto seja o objetivo.
 
   _Por que?_
 
-  > Breaking your build is one way of enforcing code style to your code. It prevents you from taking it less seriously. Do it for both client and server-side code. [read more...](https://www.robinwieruch.de/react-eslint-webpack-babel/)
+  > É claro, isso só depende de você. Nós usamos transpilers para tirar vantagem de novas sintaxes. stage-2 é bem provável de se tornar parte da especificação em alguma revisão.
 
-- Use [ESLint - Pluggable JavaScript linter](http://eslint.org/) to enforce code style.
-
-  _Por que?_
-
-  > We simply prefer `eslint`, you don't have to. It has more rules supported, the ability to configure the rules, and ability to add custom rules.
-
-- We use [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) for JavaScript, [Read more](https://www.gitbook.com/book/duk/airbnb-javascript-guidelines/details). Use the javascript style guide required by the project or your team.
-
-- We use [Flow type style check rules for ESLint](https://github.com/gajus/eslint-plugin-flowtype) when using [FlowType](https://flow.org/).
+- Inclua alguma conferência automática de padrão de código no seu build.
 
   _Por que?_
 
-  > Flow introduces few syntaxes that also need to follow certain code style and be checked.
+  > Quebrar o build é uma forma de forçar os padrões de código. Evite que não seja levado a sério. Faça isso tanto para o backend quanto para o front. [Leia mais sobre...](https://www.robinwieruch.de/react-eslint-webpack-babel/)
 
-- Use `.eslintignore` to exclude files or folders from code style checks.
-
-  _Por que?_
-
-  > You don't have to pollute your code with `eslint-disable` comments whenever you need to exclude a couple of files from style checking.
-
-- Remove any of your `eslint` disable comments before making a Pull Request.
+- Use [ESLint - Pluggable JavaScript linter](http://eslint.org/) para garantir que os padrões serão seguidos.
 
   _Por que?_
 
-  > It's normal to disable style check while working on a code block to focus more on the logic. Just remember to remove those `eslint-disable` comments and follow the rules.
+  > Nós simplesmente preferimos `eslint`, você não precisa necessariamente. `eslint` da suporte a mais regras, a possibilidade de configura-las e criar regras customizadas.
 
-- Depending on the size of the task use `//TODO:` comments or open a ticket.
+- Nós usamos [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) para JavaScript, [Leia mais sobre](https://www.gitbook.com/book/duk/airbnb-javascript-guidelines/details). Escolha os padrões necessário para seu projeto.
 
-  _Por que?_
-
-  > So then you can remind yourself and others about a small task (like refactoring a function or updating a comment). For larger tasks use `//TODO(#3456)` which is enforced by a lint rule and the number is an open ticket.
-
-* Always comment and keep them relevant as code changes. Remove commented blocks of code.
+- Usamos [Flow type style check rules for ESLint](https://github.com/gajus/eslint-plugin-flowtype) ao usar [FlowType](https://flow.org/).
 
   _Por que?_
 
-  > Your code should be as readable as possible, you should get rid of anything distracting. If you refactored a function, don't just comment out the old one, remove it.
+  > Flow usa algumas sintaxes que também precisam de seguir um padrão.
 
-* Avoid irrelevant or funny comments, logs or naming.
-
-  _Por que?_
-
-  > While your build process may(should) get rid of them, sometimes your source code may get handed over to another company/client and they may not share the same banter.
-
-* Make your names search-able with meaningful distinctions avoid shortened names. For functions use long, descriptive names. A function name should be a verb or a verb phrase, and it needs to communicate its intention.
+- Use `.eslintignore` para excluir os arquivos que devem ser ignorados pelas regras.
 
   _Por que?_
 
-  > It makes it more natural to read the source code.
+  > Você não precisa poluir seu código com comentários como `eslint-disable` toda vez que quiser desabilitar alguma regra em um certo arquivo.
 
-* Organize your functions in a file according to the step-down rule. Higher level functions should be on top and lower levels below.
+- Remova todos `eslint-disable` antes de fazer um pull request.
 
   _Por que?_
 
-  > It makes it more natural to read the source code.
+  > É normal desabilitar o `eslint` para focar na lógica de uma parte do código. Apenas se lembre de remover o `eslint-disable` quando terminar.rules.
+
+- Dependendo do tamanho da task, use comentários com `//TODO:` para ajudar na criação de novas tasks para o backlog.
+
+  _Por que?_
+
+  > Você vai deixar um lembrete para os outros, e para você mesmo, de pequenas tarefas ou correções (como refatorar uma função ou atualizar um comentário). Para tarefas maiores escreva `//TODO(#3456)` fazendo referência ao ticket aberto no backlog para aquela task.
+
+* Sempre faça comentários relevantes. Delete código morto ou comentado.
+
+  _Por que?_
+
+  > Você deve prezar pela legibilidade do seu código, então se livre de qualquer distração possível no código. Se você refatorou uma função, não deixe a antiga lá apenas comentada, delete-a.
+
+* Evite comentários irrelevantes, engraçados ou ofensivos.
+
+  _Por que?_
+
+  > Mesmo que seu processo de build possa remove-los, as vezes seu código pode ser pego por alguém diferente, uma empresa terceirizada ou um chefe de outra área e isso pode não ser tão tranquilo.
+
+* Use nomes com significados, fáceis de pesquisar e sem abreviações para suas variáveis ou funções. O nome de uma função deve ser um verbo ou uma frase e precisa de deixar claro a sua intenção.
+
+  _Por que?_
+
+  > Faz com que o seu código seja mais legível e natual.
 
 <a name="enforcing-code-style-standards"></a>
 
-### 7.2 Enforcing code style standards
+### 7.2 Force o code style
 
-- Use a [.editorconfig](http://editorconfig.org/) file which helps developers define and maintain consistent coding styles between different editors and IDEs on the project.
-
-  _Por que?_
-
-  > The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles. EditorConfig files are easily readable and they work nicely with version control systems.
-
-- Have your editor notify you about code style errors. Use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) and [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) with your existing ESLint configuration. [read more...](https://github.com/prettier/eslint-config-prettier#installation)
-
-- Consider using Git hooks.
+- Use o arquivo [.editorconfig](http://editorconfig.org/) para ajudar a definir e manter a consistência de estilo de código entre diferentes editores e IDE.
 
   _Por que?_
 
-  > Git hooks greatly increase a developer's productivity. Make changes, commit and push to staging or production environments without the fear of breaking builds. [read more...](http://githooks.com/)
+  > O EditorConfig consiste em um arquivo para edição de estilo de código e declaração de plugins para habilitar o editor a ler os arquivos em um determinado formato e  formarta-los de acordo com o esperado. EditorConfig são fáceis de ler e funcionam muito bem com sistemas de controle de versão.
 
-- Use Prettier with a precommit hook.
+- Configure seu editor para alertar sobre erros de estilo de código. Use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) e [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) com seu arquivo ESLint já existente. [Leia mais sobre...](https://github.com/prettier/eslint-config-prettier#installation)
+
+- Considere usar Git Hooks.
 
   _Por que?_
 
-  > While `prettier` itself can be very powerful, it's not very productive to run it simply as an npm task alone each time to format code. This is where `lint-staged` (and `husky`) come into play. Read more on configuring `lint-staged` [here](https://github.com/okonet/lint-staged#configuration) and on configuring `husky` [here](https://github.com/typicode/husky).
+  > Git hooks aumentam de forma expressiva a produtividade do desenvolvedor. Faça alterações, commit e push sem o medo de quebrar o código pronto para produção. [Leia mais sobre...](http://githooks.com/)
+
+- Use Prettier com o precommit hook.
+
+  _Por que?_
+
+  > O `prettier` por si só pode ser bem poderoso porém, não é muito produtivo rodar uma npm task sozinha toda hora só para formatar o código. É então que o `lint-staged` (e o `husky`) entram em ação. Leia mais sobre como configurar o  `lint-staged` [aqui](https://github.com/okonet/lint-staged#configuration) e sobre o  `husky` [aqui](https://github.com/typicode/husky).
 
 <a name="logging"></a>
 
